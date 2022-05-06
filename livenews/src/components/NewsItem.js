@@ -15,16 +15,14 @@ export class NewsItem extends Component {
     return (
 
 	<>
-      <div>
 	<div className="card" style={{width: "18rem"}}>
-		<img src={urlToImage} className="card-img-top" alt="..." urlToImage="https://www.wfsb.com/2022/05/06/entire-state-medium-or-high-category-covid-levels/" />
+		<img src={urlToImage} className="card-img-top" alt="..."/>
 			<div className="card-body">
-				<h5 className="card-title">{title}</h5>
-				<p className="card-text">{description}</p>
-				<a href={url} className="btn btn-primary">View Detail</a>
+				<h5 className="card-title">{title}...</h5>
+				<p className="card-text">{description}....</p>
+				<a href={url} target="_blank" className="btn btn-primary">View Detail</a>
 			</div>
 		</div>
-      </div>
       </>
     )
   }

@@ -8,8 +8,8 @@ export class News extends Component {
 
 
   // get the json file
-  articles = {
-	  "articles": [
+  articles = 
+	 [
 		  {
 			  "source": {
 				  "id": null,
@@ -270,10 +270,8 @@ export class News extends Component {
 			  "publishedAt": "2022-05-06T12:08:36Z",
 			  "content": "Binance, the world's largest cryptocurrency exchange, is investing $500 million as part of Elon Musk's deal to take Twitter private.\r\nThat sum is simply a blank check, CEO Changpeng Zhao told the Fin… [+1984 chars]"
 		  }
-	  ],
-	  loading: false
-  }
-
+	  ]
+	  
 
   constructor(){
 	super(); // this is compulsory to run the app if we are using constructor
@@ -293,24 +291,30 @@ export class News extends Component {
 	// to set the state in the class based components we used :  this.setState({
 	// articles: newArticle
 	//})
+
+	// for accessing the articles: we use: this.state.articles
 }
 
   render() {
     return (
 	    <>
-		<div className='container my-3 mt-5'>This is a news component
-		<h1>Live News - Breaking news at your finger tips</h1>
+		<div className='container my-3 mt-5 text-center'>
+		<h2>Live News - Breaking news at your finger tips</h2>
 		{/* we can siply pass the title and description in it. and it will reflects changes into the NewsItem cards section */}
-			<div className="row mt-5">
-				<div className="col-md-4">
-					<NewsItem title="Entire state in medium or high category for COVID levels - Eyewitness News 3" description="All eight Connecticut counties are either in the medium or high categories when it comes to COVID-19 community levels." urlToImage="https://gray-wfsb-prod.cdn.arcpublishing.com/resizer/X1BVtDw-fX41hqeGoaTScsvz4Ek=/980x0/smart/filters:quality(85)/cloudfront-us-east-1.images.arcpublishing.com/gray/PUJS4HYFXFFPBDMAX4N3D3T5KY.JPG" url="https://www.wfsb.com/2022/05/06/entire-state-medium-or-high-category-covid-levels/"/>
-				</div>
-				<div className="col-md-4">
-					<NewsItem title="This is 1st title" description="This is my 1st description" />
-				</div>
-				<div className="col-md-4">
-					<NewsItem title="This is 1st title" description="This is my 1st description" />
-				</div>
+
+		</div>
+		<hr />
+
+		{/* looping through the array */}
+
+		<div className="container">
+			<div className="row">
+				 {this.state.articles.map(ele => {
+				return	<div className="col-md-4" key={ele.url}>
+						<NewsItem title={ele.title.slice(0,45)} description={ele.description !== null ? ele.description : "Description doesn't available for this news"} urlToImage={ele.urlToImage !== null ? ele.urlToImage : "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"} url={ele.url}/>
+					</div>
+				})}
+				
 			</div>
 		</div>
       	    </>
