@@ -83,6 +83,8 @@ handlePreviousClick = async ()=>{
 		page: this.state.page - 1,
 		articles: parseData.articles,
 	})
+
+	window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 handleNextClick = async ()=>{
 
@@ -93,6 +95,7 @@ handleNextClick = async ()=>{
 			page: this.state.page + 1,
 			articles: parseData.articles,
 		})
+		window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
   render() {
