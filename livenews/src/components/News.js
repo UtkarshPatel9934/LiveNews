@@ -1,6 +1,7 @@
 // import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
+import Spinner from './Spinner';
 
 
 export class News extends Component {
@@ -63,7 +64,7 @@ changeToIN = async() =>{
 async componentDidMount(){
 
 	// Fetching the Data from the API - Code With Harry 
-	let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=1&pageSize=20`;
+	let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=1&pageSize=${this.props.pageSize}`;
 	let data = await fetch(url);
 	let parseData = await data.json()
 	this.setState({
@@ -76,7 +77,7 @@ async componentDidMount(){
 
 handlePreviousClick = async ()=>{
 
-	let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=${this.state.page - 1}&pageSize=20`;
+	let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
 	let data = await fetch(url);
 	let parseData = await data.json()
 	this.setState({
@@ -88,7 +89,7 @@ handlePreviousClick = async ()=>{
 }
 handleNextClick = async ()=>{
 
-		let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=${this.state.page + 1}&pageSize=20`;
+		let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
 		let data = await fetch(url);
 		let parseData = await data.json()
 		this.setState({
@@ -98,7 +99,11 @@ handleNextClick = async ()=>{
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-  render() {
+
+
+// we can access props using this.props
+
+render() {
     return (
 	    <>
 		<div className='container my-3 mt-5 text-center'>
@@ -107,6 +112,8 @@ handleNextClick = async ()=>{
 
 		</div>
 		<hr style={{'border': '2px solid white'}} />
+
+		<Spinner />
 
 		{/* looping through the array */}
 
@@ -138,7 +145,7 @@ handleNextClick = async ()=>{
 			{/* Previou/Next buttons */}
 			<div className="d-flex justify-content-between">
 				<button disabled={this.state.page <= 1} type="button" className="btn btn-primary m-2"  onClick={this.handlePreviousClick}>&#8592; Previous</button>
-				<button disabled={this.state.page + 1 > (Math.ceil(this.state.totalResults/20))} type="button" className="btn btn-primary m-2"  onClick={this.handleNextClick}>Next &#8594;</button>
+				<button disabled={this.state.page + 1 > (Math.ceil(this.state.totalResults/this.props.pageSize))} type="button" className="btn btn-primary m-2"  onClick={this.handleNextClick}>Next &#8594;</button>
 			</div>
 			{/* Previou/Next buttons */}
 		</div>
