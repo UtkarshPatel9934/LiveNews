@@ -15,12 +15,12 @@ export class NewsItem extends Component {
     return (
 
 	<>
-	<div className="card" style={{"marginBottom": '20px'}}>
+	<div className="card bg-dark text-light" style={{"marginBottom": '20px'}}>
 		<img src={urlToImage} style={{"height": "250px"}} className="card-img-top" alt="..."/>
 			<div className="card-body">
 				<h5 className="card-title">{title}...</h5>
 				<p className="card-text">{description}....</p>
-				<a href={url} target="_blank" className="btn btn-dark text-light">View Article</a>
+				<a rel="noreferrer" href={url} target="_blank" className="btn btn-warning text-dark"><strong>View Article</strong></a>
 			</div>
 		</div>
       </>

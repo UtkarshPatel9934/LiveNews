@@ -12,9 +12,9 @@ export default class App extends Component {
 
   // 1. firstly it cmpiles the JSX code 
   // 2. after it render the code to the page
-
+  
+  /* <h1>This is Class Based Components: {this.c}</h1> */
   render() {
-    {/* <h1>This is Class Based Components: {this.c}</h1> */}
     return (
          <div>
            <Navbar />
