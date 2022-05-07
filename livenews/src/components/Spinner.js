@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import loading from './noimg.png'
+import loading from './loading.gif'
 
 export default class Spinner extends Component {
   static propTypes = {
@@ -9,7 +9,7 @@ export default class Spinner extends Component {
 
   render() {
     return (
-      <div>
+      <div className='text-center'>
 	<img src={loading} alt=""/>
       </div>
     )

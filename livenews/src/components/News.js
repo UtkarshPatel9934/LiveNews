@@ -65,9 +65,13 @@ async componentDidMount(){
 
 	// Fetching the Data from the API - Code With Harry 
 	let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=1&pageSize=${this.props.pageSize}`;
+	this.setState({
+		loading: true
+	})
 	let data = await fetch(url);
 	let parseData = await data.json()
 	this.setState({
+		loading: false,
 		articles: parseData.articles,
 		totalResults: parseData.totalResults
 	});
@@ -78,9 +82,13 @@ async componentDidMount(){
 handlePreviousClick = async ()=>{
 
 	let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+	this.setState({
+		loading: true
+	})
 	let data = await fetch(url);
 	let parseData = await data.json()
 	this.setState({
+		loading: true,
 		page: this.state.page - 1,
 		articles: parseData.articles,
 	})
@@ -88,15 +96,26 @@ handlePreviousClick = async ()=>{
 	window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 handleNextClick = async ()=>{
-
+	if(!(this.state.page + 1 > (Math.ceil(this.state.totalResults/this.props.pageSize))))
+	{
 		let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+
+		// set the state for the loading
+		this.setState({
+			loading: true
+		})
+		
 		let data = await fetch(url);
 		let parseData = await data.json()
+		
+		// after the parsing process it will be disabled
 		this.setState({
+			loading: true,
 			page: this.state.page + 1,
 			articles: parseData.articles,
 		})
 		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}
 }
 
 
@@ -113,7 +132,7 @@ render() {
 		</div>
 		<hr style={{'border': '2px solid white'}} />
 
-		<Spinner />
+		{this.state.loading && <Spinner />}
 
 		{/* looping through the array */}
 
@@ -132,7 +151,7 @@ render() {
 			<hr style={{'border': '2px solid white'}} />
 
 			<div className="row">
-				 {this.state.articles.map(ele => {
+				 {!this.state.loading && this.state.articles.map(ele => {
 				return	<div className="col-md-4" key={ele.url}>
 						<NewsItem title={ele.title.slice(0,45)} description={ele.description !== null ? ele.description.slice(0,88) : "Description doesn't available for this news"} urlToImage={ele.urlToImage !== null ? ele.urlToImage : "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"} url={ele.url}/>
 					</div>
