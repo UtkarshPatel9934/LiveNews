@@ -5,6 +5,10 @@ import React, { Component } from 'react'
 import Navbar from './components/Navbar';
 import News from './components/News';
 
+
+// import pops types
+import PropTypes from 'prop-types'
+
 export default class App extends Component {
   // Note: we dont't have to decalare the variable using let const and var in it....
   // c = "John";
@@ -18,7 +22,7 @@ export default class App extends Component {
     return (
          <div>
            <Navbar />
-           <News pageSize={5}/>
+           <News pageSize={5} country="in" category="science"/>
          </div>
     )
   }

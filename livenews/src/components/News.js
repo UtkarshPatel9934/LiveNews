@@ -4,8 +4,22 @@ import NewsItem from './NewsItem'
 import Spinner from './Spinner';
 
 
+import PropTypes from 'prop-types'
+
 export class News extends Component {
-  static propTypes = {}
+  static defaultProps = {
+	  country: 'in',
+	  pageSize: 8,
+	  category: "general"
+  }
+
+  // add the datatypes required for the pops
+
+  static propTypes = {
+	  country: PropTypes.string,
+	  pageSize: PropTypes.number,
+	  category: PropTypes.string
+  }
 
 
   constructor(){
@@ -64,7 +78,8 @@ changeToIN = async() =>{
 async componentDidMount(){
 
 	// Fetching the Data from the API - Code With Harry 
-	let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=1&pageSize=${this.props.pageSize}`;
+	let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=1&pageSize=${this.props.pageSize}`;
+	// let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=1&pageSize=${this.props.pageSize}`;
 	this.setState({
 		loading: true
 	})
@@ -81,7 +96,8 @@ async componentDidMount(){
 
 handlePreviousClick = async ()=>{
 
-	let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+	let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
+	// let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=${this.state.page - 1}&pageSize=${this.props.pageSize}`;
 	this.setState({
 		loading: true
 	})
@@ -98,7 +114,8 @@ handlePreviousClick = async ()=>{
 handleNextClick = async ()=>{
 	if(!(this.state.page + 1 > (Math.ceil(this.state.totalResults/this.props.pageSize))))
 	{
-		let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+		let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
+		// let url = `https://newsapi.org/v2/top-headlines?country=${this.state.country}&apiKey=67cd1a47fa044434bde495a09c290d2d&page=${this.state.page + 1}&pageSize=${this.props.pageSize}`;
 
 		// set the state for the loading
 		this.setState({
@@ -147,6 +164,7 @@ render() {
 				<button type="button" className="btn btn-warning m-2"  onClick={this.changeToIN}><strong>India</strong></button>
 			</div>
 			{/* Country Filter buttons */}
+
 
 			<hr style={{'border': '2px solid white'}} />
 
