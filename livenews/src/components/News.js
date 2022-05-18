@@ -1,7 +1,7 @@
 // import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
-import Spinner from './Spinner';
+// import Spinner from './Spinner';
 
 
 import PropTypes from 'prop-types'
@@ -45,7 +45,7 @@ export class News extends Component {
 
 
 changeToUS = async() =>{
-	let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=67cd1a47fa044434bde495a09c290d2d&${this.state.page}`;
+	let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=67cd1a47fa044434bde495a09c290d2d&${this.state.page}&pageSize=${this.props.pageSize}`;
 	let data = await fetch(url);
 	let parseData = await data.json()
 	this.setState({
@@ -54,7 +54,7 @@ changeToUS = async() =>{
 	})
 }
 changeToCA = async() =>{
-	let url = `https://newsapi.org/v2/top-headlines?country=ca&apiKey=67cd1a47fa044434bde495a09c290d2d&${this.state.page}`;
+	let url = `https://newsapi.org/v2/top-headlines?country=ca&apiKey=67cd1a47fa044434bde495a09c290d2d&${this.state.page}&pageSize=${this.props.pageSize}`;
 	let data = await fetch(url);
 	let parseData = await data.json()
 	this.setState({
@@ -63,7 +63,7 @@ changeToCA = async() =>{
 	})
 }
 changeToIN = async() =>{
-	let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=67cd1a47fa044434bde495a09c290d2d&${this.state.page}`;
+	let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=67cd1a47fa044434bde495a09c290d2d&${this.state.page}&pageSize=${this.props.pageSize}`;
 	let data = await fetch(url);
 	let parseData = await data.json()
 	this.setState({
@@ -149,7 +149,7 @@ render() {
 		</div>
 		<hr style={{'border': '2px solid white'}} />
 
-		{this.state.loading && <Spinner />}
+		{/* {this.state.loading && <Spinner />} */}
 
 		{/* looping through the array */}
 
@@ -169,9 +169,10 @@ render() {
 			<hr style={{'border': '2px solid white'}} />
 
 			<div className="row">
-				 {!this.state.loading && this.state.articles.map(ele => {
+				 {/* {!this.state.loading && this.state.articles.map(ele => { */}
+				 {this.state.articles.map(ele => {
 				return	<div className="col-md-4" key={ele.url}>
-						<NewsItem title={ele.title.slice(0,45)} description={ele.description !== null ? ele.description.slice(0,88) : "Description doesn't available for this news"} urlToImage={ele.urlToImage !== null ? ele.urlToImage : "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"} url={ele.url}/>
+						<NewsItem title={ele.title.slice(0,45)} description={ele.description !== null ? ele.description.slice(0,88) : "Description doesn't available for this news"} urlToImage={ele.urlToImage !== null ? ele.urlToImage : "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"} url={ele.url} author={ele.author !== null ? ele.author: 'Author Info Not Avalilabe'} date={ele.publishedAt} source={ele.source.name}/>
 					</div>
 				})}
 				
